@@ -1,0 +1,5 @@
+{
+  "username": "{username}",
+  "password": "{password}",
+  "url": "https://gateway.watsonplatform.net/conversation/api/v1/workspaces/{Workspace ID}/message?version=2017-02-03"
+}

@@ -1,0 +1,16 @@
+# NPMモジュール
+node_modules/
+
+# JSDocの出力先
+
+# 設定ファイル
+.idea/
+.settings/
+.project
+serverless-conversation.iml
+
+# その他
+test/
+.setenv
+.command-memo
+.text.json

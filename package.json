@@ -1,0 +1,13 @@
+{
+  "name": "serverless-conversation",
+  "version": "1.0.0",
+  "description": "Serverless Conversation",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "readline": "^1.3.0",
+    "request": "^2.81.0"
+  }
+}
