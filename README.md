@@ -38,9 +38,9 @@
 
 ### Watson Conversation
 1. Bluemix コンソールにログインしてください。ここでは次の条件で説明をします。ご自身のアカウント情報に読替えて手順を進めてください。  
-  - Region: US South
-  - Organization: jiec_gitou
-  - Space: dev
+      - Region: US South
+      - Organization: jiec_gitou
+      - Space: dev
 
 1. Bluemix コンソールで Conversation サービスを作成してください。  
 サービス名: 任意  
