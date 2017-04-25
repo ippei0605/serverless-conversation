@@ -21,7 +21,7 @@
 
 1. Node.js をセットアップしてください。アプリは ES6 の記法で記述しています。私が使用したバージョンは v7.2.0 です。
 
-1. OpenWhisk CLI をセットアップしてください。
+1. OpenWhisk CLI をセットアップします。
     1. Bluemix コンソールにログインしてください。Region は US South としてください。(現時点では他の Region に OpenWhisk はございません。)
     1. [こちら](https://console.ng.bluemix.net/openwhisk/learn/cli) から CLI をダウンロードして解凍してください。
     1. Bluemix コンソールで Space が未定義な場合は定義してください。 (私は dev としました。)
