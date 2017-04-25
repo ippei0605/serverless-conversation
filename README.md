@@ -15,24 +15,22 @@
 ![関連図](docs/figure1.png)
 
 ## セットアップ
-このアプリをセットアップする手順を示します。
 
 ### ローカル環境の事前準備
 1. 本リポジトリから serverless-conversation アプリをダウンロード (Download ZIP) して解凍してください。ディレクトリ名は serverless-conversation-master から serverless-conversation に変更してください。
 
 1. Node.js をセットアップしてください。アプリは ES6 の記法で記述しています。私が使用したバージョンは v7.2.0 です。
-です。
 
 1. OpenWhisk CLI をセットアップしてください。
     1. Bluemix コンソールにログインしてください。Region は US South としてください。(現時点では他の Region に OpenWhisk はございません。)
     1. [こちら](https://console.ng.bluemix.net/openwhisk/learn/cli) から CLI をダウンロードして解凍してください。
     1. Bluemix コンソールで Space が未定義な場合は定義してください。 (私は dev としました。)
-    1. ローカル PC のターミナルソフトを起動してください。(私は IntelliJ IDEA や Eclipse のターミナルを使っていますが、Windows の cmd 、Mac の　ターミナルなどで操作できます。
-    1. ターミナルソフトで解凍した wsk コマンドをパスが通っているディレクトリに を配置してください。(私は macOS Sierra で作業していますので /usr/local/bin に mv しました。)
+    1. ローカル PC のターミナルソフトを起動してください。(私は IntelliJ IDEA や Eclipse のターミナルを使っていますが、Windows の cmd 、Mac のターミナルなどで操作できます。
+    1. ターミナルソフトで解凍した wsk コマンドをパスが通っているディレクトリに を配置してください。(私は macOS Sierra で作業していますので /usr/local/bin に cp しました。)
     1. ターミナルソフトで Authorization Key を設定してください。(Bluemix コンソールでご自身の環境の Authorization Key が付いたコマンドをコピーできます。例を以下に示します。)
-    ```
-    $ wsk property set --apihost openwhisk.ng.bluemix.net --auth 45xxxx5d-af96-4xxx-8xxf-97fxxxx00a08:0xxxxV9EyVxF3XXXXXmcaJREjgdLaXXXXXxXX0xXXXXXXJYllyEbbZJo1J6Ab
-    ```
+        ```
+        $ wsk property set --apihost openwhisk.ng.bluemix.net --auth 45xxxx5d-af96-4xxx-8xxf-97fxxxx00a08:0xxxxV9EyVxF3XXXXXmcaJREjgdLaXXXXXxXX0xXXXXXXJYllyEbbZJo1J6Ab
+        ```
 
 ### Watson Conversation
 1. Bluemix コンソールにログインしてください。ここでは次の条件で説明をします。ご自身のアカウント情報に読替えて手順を進めてください。  
@@ -53,35 +51,78 @@
 ![ワークスペースの接続情報](docs/figure3.png)
 
 ### ローカル環境
-1. Node.js をセットアップしてください。アプリは ES6 の記法で記述しています。私が使用したバージョンは v7.2.0 です。
-です。
-1. wsk コマンドをセットアップしてください。 [こちら](https://console.ng.bluemix.net/openwhisk/learn/cli) から最新の CLIをダウンロードできます。
+以下はターミナルソフトでの作業になります。
 
-1. serverless-conversation アプリをダウンロード (Download ZIP) して解凍してください。ディレクトリ名は serverless-conversation-master から serverless-conversation に変更してください。
+1. OpenWhisk 設定のため、解凍したディレクトリに移動します。
+    ```
+    $ cd serverless-conversation
+    ```
 
+1. CLI テストドライバーで使用するモジュールをセットアップします。
+    ```
+    npm install
+    ```
 
+1. パッケージを作成します。パッケージ名は任意、ここでは B20-O970605-Conversation としています。
+    ```
+    $ wsk package create B20-O970605-Conversation
+    ```
 
+1. アクションを作成します。コードは send-message.js を使用します。
+    ```
+    $ wsk action create B20-O970605-Conversation/send-message send-message.js
+    ```
 
-1. Bluemix コンソールにログインしてください。ここでは次の条件で説明をします。ご自身のアカウント情報に読替えて手順を進めてください。  
-  - Region: Sydney
-  - Organization: jiec_gitou
-  - Space: dev
-  
+1. アクションリストを確認します。作成したアクション以外にデフォルトで　Hello World などが表示されると思います。
+    ```
+    $ wsk action list
+    actions
+    /jiec_gitou_dev/B20-O970605-Conversation/send-message    private nodejs:6
+    ....(省略)....
+    ```
 
+1. アクションのパラメータに Conversation ワークスペースの接続情報を設定します。今回はファイルから設定することにします。
+    1. install/param.json を開き、先程確認した {username}、{password} および {Workspace ID} を編集して保存してください。
+        ```
+        {
+          "username": "{username}",
+          "password": "{password}",
+          "url": "https://gateway.watsonplatform.net/conversation/api/v1/workspaces/{Workspace ID}/message?version=2017-02-03"
+        }
+        ```
+    1. 次のコマンドを実行します。
+        ```
+        $ wsk action update B20-O970605-Conversation/send-message -P install/param.json
+        ```
 
+1. アクションを実行してエラーがないことを確認してください。
+    ```
+    $ wsk action invoke B20-O970605-Conversation/send-message --blocking --result
+    ```
 
+1. 外部公開のため APIを作成します。 (実験的ですが今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。)
+    ```
+    $ wsk api-experimental create -n "Diet Conversation" /api /chat post B20-O970605-Conversation/send-message
+    ```
 
+1. CLI テストドライバーの実行します。
+    ```
+    $ node app
+    ```
 
+## CLI テストドライバーの操作方法
+テキストを入力してリターンキーを押すことでダイエットに関するチャットができます。Ctrl + c または Ctrl +d で終了します。
+次のような質問をしてご確認ください。
+* 雑穀ダイエットとは
+* ダイエットしたい
+* ありがとう
 
-* Node-RED から Node.js に移植しました。
-* Dialog の廃止に伴い、当該機能を削除しました。
-* 質問 (テキスト) 以外にローカルの日時をサーバに送信、general-hello クラスの「おはよう」(5〜11時)、「こんにちは」(11〜17時)、「こんばんは」(17時〜24時)、「お疲れ様です」(0〜5時) の出し分けを追加しました。
-* Text to Speech によるテキストの読上げ機能を追加しました。(PC の Chrome、Firefox に対応)  
-* Google Speech API による音声認識機能を追加しました。(PC の Chrome に対応)  
-* 管理機能を追加しました。
-    - コンテンツ参照
-    - トレーニングデータ抽出
-    - Natural Language Classifier 操作用GUI
-    
+## まとめ
+* 当初は CLI ではなく Web アプリでテストドライバーを作成しようとしましたが、CORS の設定ができず、jquery、fetch ともあ API にアクセスできず断念しました。experimental がとれるのを待とうと思ってます。
+* Node.js の request から API アクセスはできました。
+* 今後は React Native でクライアントを作り、Serverless との連携を検証しようと思います。
+* Bluemix OpenWhisk Package Catalog には Watson STT、TTS、Transrator などのアクションが整備されていますので、今回作成した Conversation も近い内にリリースされるかもしれません。
+* 処理結果を同期して返す場合は、処理時間が長くなりコストがかかるかもしれません。今回は Conversation Send Message の結果を同期して返値しています。(同期しない場合は {} が返る。) 複数の処理をアクションに記述する場合、アクションをシーケンスで繋げる場合など、パフォーマンス、エラーハンドリング、コスト最適化などの留意が必要と感じました。
+
 ## 参考資料  
 * [Plan Bのおすすめ: OpenWhiskにAPI管理の機能されたので試す](https://www.niandc.co.jp/sol/tech/date20161216_568.php)
