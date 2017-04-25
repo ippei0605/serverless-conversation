@@ -1,12 +1,22 @@
 # Serverless Conversation
 
 ## はじめに
-サーバーレスが注目されているですので、Bluemix の OpenWhisk でサーバーレスアプリケーションを作成しました。
+最近サーバーレスが注目されているようですので、IBM Bluemix の OpenWhisk でサーバーレスアプリを作成してみました。
 
-「さわってみようWatson on Bluemix」(IBM) の Natural Language Classifier と Dialog による会話の仕組みを Conversation に移植しました。
+## アプリの構成
+* Watson Conversation の特定ワークスペースに Send Massage する Action を作成します。
+* ワークスペースには「さわってみようWatson on Bluemix」(IBM) の Natural Language Classifier と Dialog による会話の仕組みを Conversation に移植したものを使用します。
+* Action は APIs (experimental) で外部公開します。
+* クライアントは Node.js で CLI テストドライバーを作成します。今後 React Native などへの差し換えを検討します。
 
-## モジュール関連図
-![関連図](docs/figure.png)
+### コンポーネント関連図
+各層のコンポーネントと関連を以下に示します。
+![関連図](docs/figure1.png)
+
+
+### 関連図
+![関連図](docs/figure2.png)
+
 
 
 * Node-RED から Node.js に移植しました。
