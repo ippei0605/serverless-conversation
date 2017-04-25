@@ -1,7 +1,7 @@
 # Serverless Conversation
 
 ## はじめに
-最近はサーバーレスアーキテクチャーが注目されているようです。どんなものか興味が湧きましたので、IBM Bluemix の OpenWhisk を用いて、Watson Conversation を呼び出すサーバーレスアプリを作成してみました。
+最近はサーバーレスアーキテクチャーが注目されているようです。どんなものか興味が湧きましたので、IBM Bluemix OpenWhisk を用いて、Watson Conversation を呼び出すサーバーレスアプリを作成してみました。
 
 ## アプリの構成
 * Watson Conversation の特定ワークスペースに Send Massage する Action を作成します。
@@ -126,7 +126,7 @@
 
 
 ## まとめ
-* 当初は CLI ではなく Web アプリでテストドライバーを作成しようとしましたが、CORS の設定ができず、jquery、fetch ともあ API にアクセスできず断念しました。experimental がとれるのを待とうと思ってます。
+* 当初は CLI ではなく Web アプリでテストドライバーを作成しようとしましたが、CORS の設定ができず、jquery、fetch とも API にアクセスでエラーとなるため断念しました。experimental がとれるのを待とうと思ってます。
 * Node.js の request から API アクセスはできました。
 * 今後は React Native でクライアントを作り、Serverless との連携を検証しようと思います。
 * Bluemix OpenWhisk Package Catalog には Watson STT、TTS、Transrator などのアクションが整備されていますので、今回作成した Conversation も近い内にリリースされるかもしれません。
