@@ -86,7 +86,7 @@
     ```
 
 1. アクションのパラメータに Conversation ワークスペースの接続情報を設定します。今回はファイルから設定することにします。
-    1. install/param.json を開き、先程確認した {username}、{password} および {Workspace ID} を編集して保存してください。
+    1. テキストエディタで install/param.json を開き、先程確認した {username}、{password} および {Workspace ID} を編集して保存してください。
         ```
         {
           "username": "{username}",
