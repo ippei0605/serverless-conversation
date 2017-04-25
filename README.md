@@ -1,7 +1,7 @@
 # Serverless Conversation
 
 ## はじめに
-最近サーバーレスが注目されているようですので、IBM Bluemix の OpenWhisk でサーバーレスアプリを作成してみました。
+最近はサーバーレスアーキテクチャーが注目されているようです。どんなものか興味が湧きましたので、IBM Bluemix の OpenWhisk を用いて、Watson Conversation を呼び出すサーバーレスアプリを作成してみました。
 
 ## アプリの構成
 * Watson Conversation の特定ワークスペースに Send Massage する Action を作成します。
