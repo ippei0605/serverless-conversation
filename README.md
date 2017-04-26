@@ -62,7 +62,7 @@
     $ cd serverless-conversation
     ```
 
-1. パッケージを作成します。パッケージ名は任意、ここでは B20-O970605-Conversation としています。
+1. パッケージを作成します。パッケージ名は任意、ここでは私を表す接頭語を付加して B20-O970605-Conversation としています。同じ Region、Organization、Space を他の方とシェアしている場合は上書きの可能性がありますので注意してください。 (サブスクリプション契約など)          
     ```
     $ wsk package create B20-O970605-Conversation
     ```
@@ -81,7 +81,7 @@
     ```
 
 1. アクションのパラメータに Conversation ワークスペースの接続情報を設定します。今回はファイルから設定することにします。
-    1. テキストエディタで install/param.json を開き、先程確認した *{username}*、*{password}* および *{workspace_id}* を編集して保存してください。
+    1. テキストエディタで install/param.json を開いてください。
         ```
         {
           "username": "{username}",
@@ -89,6 +89,11 @@
           "url": "https://gateway.watsonplatform.net/conversation/api/v1/workspaces/{workspace_id}/message?version=2017-02-03"
         }
         ```
+    1. 先程確認したワークスペースの接続情報により、以下の要領で install/param.json を編集、保存、閉じてください。
+        - *{username}* を Username の値に変更
+        - *{password}* を Password の値に変更
+        - *{workspace_id}* を Workspace ID の値に変更
+    
     1. 次のコマンドを実行します。
         ```
         $ wsk action update B20-O970605-Conversation/send-message -P install/param.json
@@ -99,10 +104,11 @@
     $ wsk action invoke B20-O970605-Conversation/send-message --blocking --result
     ```
 
-1. 外部公開のため APIを作成します。 (実験的ですが今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。)
+1. 外部公開のため APIを作成します。[^1] 
     ```
     $ wsk api-experimental create -n "Diet Conversation" /api /chat post B20-O970605-Conversation/send-message
     ```
+    [^1]:実験的ですが今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。
 
 ## ローカル環境
 以下はローカル環境のターミナルソフトでの作業になります。
