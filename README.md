@@ -110,6 +110,7 @@
     - API 名: Diet Conversation (-n オプションで指定)
     - BASE_PATH: /api
     - API_PATH: /chat
+
     ```
     $ wsk api-experimental create -n "Diet Conversation" /api /chat post B20-O970605-Conversation/send-message
     ```
