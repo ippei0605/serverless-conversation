@@ -37,6 +37,8 @@
         ```
 
 ### Watson Conversation
+以下は Bluemix コンソールでの作業になります。
+
 1. Bluemix コンソールにログインしてください。ここでは次の条件で説明をします。ご自身のアカウント情報に読替えて手順を進めてください。  
       - Region: US South
       - Organization: jiec_gitou
@@ -104,12 +106,11 @@
     $ wsk action invoke B20-O970605-Conversation/send-message --blocking --result
     ```
 
-1. 外部公開のため APIを作成します。[^1] 
+1. 外部公開のため APIを作成します。[脚注1](#footnote1) 
     ```
     $ wsk api-experimental create -n "Diet Conversation" /api /chat post B20-O970605-Conversation/send-message
     ```
-    [^1]:実験的ですが今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。
-
+    
 ## ローカル環境
 以下はローカル環境のターミナルソフトでの作業になります。
 
@@ -145,6 +146,9 @@
 * 今後は React Native でクライアントを作り、Serverless との連携を検証しようと思います。
 * Bluemix OpenWhisk Package Catalog には Watson STT、TTS、Transrator などのアクションが整備されていますので、今回作成した Conversation も近い内にリリースされるかもしれません。
 * 処理結果を同期して返す場合は、処理時間が長くなりコストがかかるかもしれません。今回は Conversation Send Message の結果を同期して返値しています。(同期しない場合は {} が返る。) 複数の処理をアクションに記述する場合、アクションをシーケンスで繋げる場合など、パフォーマンス、エラーハンドリング、コスト最適化などの留意が必要と感じました。
+
+## 脚注
+<a name="footnote1">1. ^ 実験的ですが今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。
 
 ## 参考資料  
 * [Plan Bのおすすめ: OpenWhiskにAPI管理の機能されたので試す](https://www.niandc.co.jp/sol/tech/date20161216_568.php)
