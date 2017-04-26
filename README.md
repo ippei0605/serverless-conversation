@@ -23,8 +23,10 @@
 
 1. OpenWhisk CLI をセットアップします。
     1. Bluemix コンソールにログインしてください。Region は US South としてください。(現時点では他の Region に OpenWhisk はございません。)
-    1. [こちら](https://console.ng.bluemix.net/openwhisk/learn/cli) から CLI をダウンロードして解凍してください。
-    1. Bluemix コンソールで Space が未定義な場合は定義してください。 (私は dev としました。)
+    1. [OpenWhisk のトップページ](https://console.ng.bluemix.net/openwhisk/) (Getting Started with IBM OpenWhisk) に移動してください。
+        - この時、Bluemix コンソールで Space が未定義な場合は警告がでます。警告に従って Space を定義してください。 (私は dev としました。)
+    1. Download OpenWhisk CLI ボタンをクリックして [CLI ページ](https://console.ng.bluemix.net/openwhisk/learn/cli) に移動してください。
+    1. ご自身のローカル環境の CLI をダウンロードして解凍してください。
     1. ローカル PC のターミナルソフトを起動してください。(私は IntelliJ IDEA や Eclipse のターミナルを使っていますが、Windows の cmd 、Mac のターミナルなどで操作できます。
     1. ターミナルソフトで解凍した wsk コマンドをパスが通っているディレクトリに を配置してください。(私は macOS Sierra で作業していますので /usr/local/bin に cp しました。)
         ```
@@ -129,7 +131,7 @@
 
 1. CLI テストドライバーで使用するモジュールをセットアップします。
     ```
-    npm install
+    $ npm install
     ```
 
 1. CLI テストドライバーの定数定義を変更します。
