@@ -64,7 +64,8 @@
     $ cd serverless-conversation
     ```
 
-1. パッケージを作成します。パッケージ名は任意、ここでは私を表す接頭語を付加して B20-O970605-Conversation としています。同じ Region、Organization、Space を他の方とシェアしている場合は上書きの可能性がありますので注意してください。 (サブスクリプション契約など)          
+1. パッケージを作成します。パッケージ名は任意、ここでは私を表す接頭語を付加して B20-O970605-Conversation としています。
+    > 同じ Region、Organization、Space を他の方とシェアしている場合は上書きの可能性がありますので注意してください。 (サブスクリプション契約など)          
     ```
     $ wsk package create B20-O970605-Conversation
     ```
@@ -106,14 +107,16 @@
     $ wsk action invoke B20-O970605-Conversation/send-message --blocking --result
     ```
 
-1. 外部公開のため API [^1](#footnote1) を作成します。ここでは次の条件でコマンドを実行します。同じ Region、Organization、Space を他の方とシェアしている場合は上書きの可能性がありますので注意してください。 (サブスクリプション契約など) 
+1. 外部公開のため API [^1](#footnote1) を作成します。ここでは次の条件でコマンドを実行します。
     - API 名: Diet Conversation (-n オプションで指定)
     - BASE_PATH: /api
-    - API_PATH: /chat  
-
-    ```
-    $ wsk api-experimental create -n "Diet Conversation" /api /chat post B20-O970605-Conversation/send-message
-    ```
+    - API_PATH: /chat
+    
+    > 同じ Region、Organization、Space を他の方とシェアしている場合は、BASE_PATH と API_PATH が同じだと上書きされます。適宜変更してください。 (サブスクリプション契約など) 
+    
+     ```
+     $ wsk api-experimental create -n "Diet Conversation" /api /chat post B20-O970605-Conversation/send-message
+     ```
     
 ## ローカル環境
 以下はローカル環境のターミナルソフトでの作業になります。
@@ -152,7 +155,7 @@
 * 処理結果を同期して返す場合は、処理時間が長くなりコストがかかるかもしれません。今回は Conversation Send Message の結果を同期して返値しています。(同期しない場合は {} が返る。) 複数の処理をアクションに記述する場合、アクションをシーケンスで繋げる場合など、パフォーマンス、エラーハンドリング、コスト最適化などの留意が必要と感じました。
 
 ## 脚注
-1.<a name="footnote1"> ^ 実験的ですが今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。
+1.<a name="footnote1"> ^ API Experimental は実験的との意味でしょうが、今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。
 
 ## 参考資料  
 * [Plan Bのおすすめ: OpenWhiskにAPI管理の機能されたので試す](https://www.niandc.co.jp/sol/tech/date20161216_568.php)
