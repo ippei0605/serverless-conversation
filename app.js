@@ -3,7 +3,7 @@
  * CLI テストドライバー
  */
 
-//TODO: ご自身の API に変更してください。wsk api-experimental list コマンドで URL を参照できます。
+//TODO: {url} をご自身の API の URL に変更してください。wsk api-experimental list コマンドで URL を参照できます。
 const url = '{url}';
 
 const request = require("request");

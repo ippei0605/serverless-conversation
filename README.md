@@ -84,6 +84,7 @@
     ```
 
 1. アクションのパラメータに Conversation ワークスペースの接続情報を設定します。今回はファイルから設定することにします。
+
     1. テキストエディタで install/param.json を開いてください。
         ```
         {
@@ -131,6 +132,17 @@
     npm install
     ```
 
+1. CLI テストドライバーの定数定義を変更します。
+
+    1. テキストエディタで app.js を開いてください。
+    
+    1. TODO コメントの通り、*{url}* を変更してください。
+        ```javascript
+        //TODO: {url} をご自身の API の URL に変更してください。wsk api-experimental list コマンドで URL を参照できます。
+        const url = '{url}';
+        ```
+    1. app.js を保存、閉じてください。
+    
 1. CLI テストドライバーの実行します。
     ```
     $ node app
