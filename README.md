@@ -53,7 +53,7 @@
 1. 以下の要領でワークスペースを作成してください。
 ![ワークスペース作成](docs/figure2.png)
 
-1. Watson Conversation ツールのサイトメニュー Deploy - Credentials でワークスペースの接続情報を確認してください。この値は後で使用します。
+1. <a name="credentials">Watson Conversation ツールのサイトメニュー Deploy - Credentials でワークスペースの接続情報を確認してください。[この値は後で使用](#param)します。
 ![ワークスペースの接続情報](docs/figure3.png)
 
 ### OpenWhisk
@@ -91,7 +91,7 @@
           "url": "https://gateway.watsonplatform.net/conversation/api/v1/workspaces/{workspace_id}/message?version=2017-02-03"
         }
         ```
-    1. 先程確認したワークスペースの接続情報により、以下の要領で install/param.json を編集、保存、閉じてください。
+    1. <a name="param">[先程確認したワークスペースの接続情報](#credentials)により、以下の要領で install/param.json を編集、保存、閉じてください。
         - *{username}* を Username の値に変更
         - *{password}* を Password の値に変更
         - *{workspace_id}* を Workspace ID の値に変更
@@ -106,7 +106,10 @@
     $ wsk action invoke B20-O970605-Conversation/send-message --blocking --result
     ```
 
-1. 外部公開のため APIを作成します。[脚注1](#footnote1) 
+1. 外部公開のため API [^1](#footnote1) を作成します。ここでは次の条件でコマンドを実行します。同じ Region、Organization、Space を他の方とシェアしている場合は上書きの可能性がありますので注意してください。 (サブスクリプション契約など) 
+  - API 名: Diet Conversation (-n オプションで指定)
+  - BASE_PATH: /api
+  - API_PATH: /chat
     ```
     $ wsk api-experimental create -n "Diet Conversation" /api /chat post B20-O970605-Conversation/send-message
     ```
@@ -148,7 +151,7 @@
 * 処理結果を同期して返す場合は、処理時間が長くなりコストがかかるかもしれません。今回は Conversation Send Message の結果を同期して返値しています。(同期しない場合は {} が返る。) 複数の処理をアクションに記述する場合、アクションをシーケンスで繋げる場合など、パフォーマンス、エラーハンドリング、コスト最適化などの留意が必要と感じました。
 
 ## 脚注
-<a name="footnote1">1. ^ 実験的ですが今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。
+1.<a name="footnote1"> ^ 実験的ですが今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。
 
 ## 参考資料  
 * [Plan Bのおすすめ: OpenWhiskにAPI管理の機能されたので試す](https://www.niandc.co.jp/sol/tech/date20161216_568.php)
