@@ -3,8 +3,10 @@
  * CLI テストドライバー
  */
 
-const request = require("request");
+//TODO: ご自身の API に変更してください。wsk api-experimental list コマンドで URL を参照できます。
+const url = '{url}';
 
+const request = require("request");
 const readline = require('readline');
 const rl = readline.createInterface(process.stdin, process.stdout);
 const prefix = '> ';
@@ -15,7 +17,7 @@ let context = null;
 let chat = (text) => {
     let options = {
         "method": "POST",
-        "url": "https://de48b05f-e3b7-468b-9376-71fae6816b02-gws.api-gw.mybluemix.net/api/chat",
+        "url": url,
         "headers": {
             "accept": "application/json",
             "content-type": "application/json",

@@ -54,17 +54,12 @@
 1. Watson Conversation ツールのサイトメニュー Deploy - Credentials でワークスペースの接続情報を確認してください。この値は後で使用します。
 ![ワークスペースの接続情報](docs/figure3.png)
 
-### ローカル環境
-以下はターミナルソフトでの作業になります。
+### OpenWhisk
+以下はローカル環境のターミナルソフトでの作業になります。
 
 1. OpenWhisk 設定のため、解凍したディレクトリに移動します。
     ```
     $ cd serverless-conversation
-    ```
-
-1. CLI テストドライバーで使用するモジュールをセットアップします。
-    ```
-    npm install
     ```
 
 1. パッケージを作成します。パッケージ名は任意、ここでは B20-O970605-Conversation としています。
@@ -86,12 +81,12 @@
     ```
 
 1. アクションのパラメータに Conversation ワークスペースの接続情報を設定します。今回はファイルから設定することにします。
-    1. テキストエディタで install/param.json を開き、先程確認した {username}、{password} および {Workspace ID} を編集して保存してください。
+    1. テキストエディタで install/param.json を開き、先程確認した *{username}*、*{password}* および *{workspace_id}* を編集して保存してください。
         ```
         {
           "username": "{username}",
           "password": "{password}",
-          "url": "https://gateway.watsonplatform.net/conversation/api/v1/workspaces/{Workspace ID}/message?version=2017-02-03"
+          "url": "https://gateway.watsonplatform.net/conversation/api/v1/workspaces/{workspace_id}/message?version=2017-02-03"
         }
         ```
     1. 次のコマンドを実行します。
@@ -107,6 +102,19 @@
 1. 外部公開のため APIを作成します。 (実験的ですが今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。)
     ```
     $ wsk api-experimental create -n "Diet Conversation" /api /chat post B20-O970605-Conversation/send-message
+    ```
+
+## ローカル環境
+以下はローカル環境のターミナルソフトでの作業になります。
+
+1. CLI テストドライバーのセットアップのために、解凍したディレクトリに移動します。
+    ```
+    $ cd serverless-conversation
+    ```
+
+1. CLI テストドライバーで使用するモジュールをセットアップします。
+    ```
+    npm install
     ```
 
 1. CLI テストドライバーの実行します。
