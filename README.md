@@ -148,11 +148,11 @@
 
 
 ## まとめ
-* 当初は CLI ではなく Web アプリでテストドライバーを作成しようとしましたが、CORS の設定ができず、jquery、fetch とも API にアクセスでエラーとなるため断念しました。experimental がとれるのを待とうと思ってます。
-* Node.js の request から API アクセスはできました。
+* 当初は CLI ではなく Web アプリでテストドライバーを作成しようとしましたが、CORS の設定ができず、jquery、fetch ともアクセスエラーとなるため断念しました。experimental がとれるのを待とうと思ってます。
+* Node.js の request からは API アクセスできました。
 * 今後は React Native でクライアントを作り、Serverless との連携を検証しようと思います。
-* Bluemix OpenWhisk Package Catalog には Watson STT、TTS、Transrator などのアクションが整備されていますので、今回作成した Conversation も近い内にリリースされるかもしれません。
-* 処理結果を同期して返す場合は、処理時間が長くなりコストがかかるかもしれません。今回は Conversation Send Message の結果を同期して返値しています。(同期しない場合は {} が返る。) 複数の処理をアクションに記述する場合、アクションをシーケンスで繋げる場合など、パフォーマンス、エラーハンドリング、コスト最適化などの留意が必要と感じました。
+* Bluemix OpenWhisk Package Catalog には Watson STT、TTS、Translator などのアクションが整備されていますので、今回作成した Conversation も近い内にリリースされるかもしれません。
+* 処理結果を同期して返す場合は、処理時間が長くなり想定以上にコストがかかるかもしれません。今回は Conversation Send Message の結果を同期して返値しています。(同期しない場合は {} が返ります。) 複数の処理をアクションに記述する場合や、アクションをシーケンスで繋げる場合など、パフォーマンス、エラーハンドリング、コスト最適化などの留意が必要と感じました。
 
 ## 脚注
 1.<a name="footnote1"> ^ API Experimental は実験的との意味でしょうが、今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。
