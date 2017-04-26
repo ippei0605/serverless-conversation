@@ -109,7 +109,7 @@
 1. 外部公開のため API [^1](#footnote1) を作成します。ここでは次の条件でコマンドを実行します。同じ Region、Organization、Space を他の方とシェアしている場合は上書きの可能性がありますので注意してください。 (サブスクリプション契約など) 
     - API 名: Diet Conversation (-n オプションで指定)
     - BASE_PATH: /api
-    - API_PATH: /chat
+    - API_PATH: /chat  
 
     ```
     $ wsk api-experimental create -n "Diet Conversation" /api /chat post B20-O970605-Conversation/send-message
