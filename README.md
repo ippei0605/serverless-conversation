@@ -5,8 +5,7 @@
 
 ## アプリの構成
 * Watson Conversation の特定ワークスペースに Send Massage する Action を作成します。
-* ワークスペースには「さわってみようWatson on Bluemix」(IBM) の Natural Language Classifier と Dialog による会話の仕組みを Conversation に移植したものを使用します。
-  - 過去に関連した音声認識付き Chatbot アプリを作成しています。リポジトリは [こちら](https://github.com/ippei0605/watson-diet-trainer) です。
+* ワークスペースには「さわってみようWatson on Bluemix」(IBM) の Natural Language Classifier と Dialog による ダイエットトレーナーの会話の仕組みを Conversation に移植したものを使用します。[^1](#footnote)
 * Action は APIs (experimental) で外部公開します。
 * クライアントは Node.js で CLI テストドライバーを作成します。今後 React Native などへの差し換えを検討します。
 
@@ -110,7 +109,7 @@
     $ wsk action invoke B20-O970605-Conversation/send-message --blocking --result
     ```
 
-1. 外部公開のため API [^1](#footnote1) を作成します。ここでは次の条件でコマンドを実行します。
+1. 外部公開のため API [^2](#footnote) を作成します。ここでは次の条件でコマンドを実行します。
     - API 名: Diet Conversation (-n オプションで指定)
     - BASE_PATH: /api
     - API_PATH: /chat
@@ -166,10 +165,11 @@
 * 今後は React Native でクライアントを作り、Serverless との連携を検証しようと思います。
 * Bluemix OpenWhisk Package Catalog には Watson STT、TTS、Translator などのアクションが整備されていますので、今回作成した Conversation も近い内にリリースされるかもしれません。
 * 処理結果を同期して返す場合は、処理時間が長くなり想定以上にコストがかかるかもしれません。今回は Conversation Send Message の結果を同期して返値しています。(同期しない場合は {} が返ります。) 複数の処理をアクションに記述する場合や、アクションをシーケンスで繋げる場合など、パフォーマンス、エラーハンドリング、コスト最適化などの留意が必要と感じました。
-* 後で気がついたのですが、OpenWhisk Node.js のランタイム環境では watson-developer-cloud モジュールが使用可能でした。ドキュメントは [こちら](https://console.ng.bluemix.net/docs/openwhisk/openwhisk_reference.html#openwhisk_ref_javascript) 。
+* 後で気がついたのですが、OpenWhisk Node.js のランタイム環境では watson-developer-cloud モジュールが使用可能でした。詳細は [こちら](https://console.ng.bluemix.net/docs/openwhisk/openwhisk_reference.html#openwhisk_ref_javascript) の JavaScript runtime environments に記載されています。
 
-## 脚注
-1.<a name="footnote1"> ^ API Experimental は実験的との意味でしょうが、今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。
+## 脚注 <a name="footnote">
+1. ^ 過去に関連した音声認識付き Chatbot アプリ Watson Diet Trainer を作成しています。リポジトリは [こちら](https://github.com/ippei0605/watson-diet-trainer) です。
+1. ^ API Experimental は実験的との意味でしょうが、今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。
 
 ## 参考資料  
 * [Plan Bのおすすめ: OpenWhiskにAPI管理の機能されたので試す](https://www.niandc.co.jp/sol/tech/date20161216_568.php)
