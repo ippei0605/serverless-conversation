@@ -5,7 +5,7 @@
 
 ## アプリの構成
 * Watson Conversation の特定ワークスペースに Send Massage する Action を作成します。
-* ワークスペースには「さわってみようWatson on Bluemix」(IBM) の Natural Language Classifier と Dialog による ダイエットトレーナーの会話の仕組みを Conversation に移植したものを使用します。[^1](#footnote)
+* ワークスペースには「さわってみようWatson on Bluemix」(IBM) の Natural Language Classifier と Dialog による ダイエットトレーナーの会話の仕組みを Conversation に移植したものを使用します。[^1](#footnote) <a name="link1">
 * Action は APIs (experimental) で外部公開します。
 * クライアントは Node.js で CLI テストドライバーを作成します。今後 React Native などへの差し換えを検討します。
 
@@ -109,7 +109,7 @@
     $ wsk action invoke B20-O970605-Conversation/send-message --blocking --result
     ```
 
-1. 外部公開のため API [^2](#footnote) を作成します。ここでは次の条件でコマンドを実行します。
+1. 外部公開のため API [^2](#footnote) <a name="link2"> を作成します。ここでは次の条件でコマンドを実行します。
     - API 名: Diet Conversation (-n オプションで指定)
     - BASE_PATH: /api
     - API_PATH: /chat
@@ -168,8 +168,8 @@
 * 後で気がついたのですが、OpenWhisk Node.js のランタイム環境では watson-developer-cloud モジュールが使用可能でした。詳細は [こちら](https://console.ng.bluemix.net/docs/openwhisk/openwhisk_reference.html#openwhisk_ref_javascript) の JavaScript runtime environments に記載されています。
 
 ## 脚注 <a name="footnote">
-1. ^ 過去に関連した音声認識付き Chatbot アプリ Watson Diet Trainer を作成しています。リポジトリは [こちら](https://github.com/ippei0605/watson-diet-trainer) です。
-1. ^ API Experimental は実験的との意味でしょうが、今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。
+1. [^](#link1) 過去に関連した音声認識付き Chatbot アプリ Watson Diet Trainer を作成しています。リポジトリは [こちら](https://github.com/ippei0605/watson-diet-trainer) です。
+1. [^](#link2) API Experimental は実験的との意味でしょうが、今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。
 
 ## 参考資料  
 * [Plan Bのおすすめ: OpenWhiskにAPI管理の機能されたので試す](https://www.niandc.co.jp/sol/tech/date20161216_568.php)
