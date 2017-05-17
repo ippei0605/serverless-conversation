@@ -32,9 +32,11 @@
         $ sudo cp wsk /usr/local/bin
         ```
         
-    1. ターミナルソフトで Authorization Key を設定してください。Bluemix コンソールでご自身の環境の Authorization Key が付いたコマンドをコピーできます。
+    1. ターミナルソフトで Authorization Key を設定してください。
+      - Bluemix コンソールでご自身の環境の Authorization Key が付いたコマンドをコピーできます。
         ![Console](docs/figure5.png)
     
+      - コマンドの例を以下に示します。 (認証キーを X でマスクしています。)
         ```
         $ wsk property set --apihost openwhisk.ng.bluemix.net --auth 45xxxx5d-af96-4xxx-8xxf-97fxxxx00a08:0xxxxV9EyVxF3XXXXXmcaJREjgdLaXXXXXxXX0xXXXXXXJYllyEbbZJo1J6Ab
         ```
