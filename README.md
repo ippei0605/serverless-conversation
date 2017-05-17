@@ -1,12 +1,17 @@
 # Serverless Conversation
 
+## 更新履歴
+### v1.0.1
+* wsk api コマンドのリリースに伴い、api-experimental を api コマンドに変更しました。
+* Conversation 接続情報の version を最新化しました。 (2017-02-17 → 2017-04-21)
+
 ## はじめに
 最近はサーバーレスアーキテクチャーが注目されているようです。どんなものか興味が湧きましたので、IBM Bluemix OpenWhisk を用いて、Watson Conversation を呼び出すサーバーレスアプリを作成してみました。
 
 ## アプリの構成
 * Watson Conversation の特定ワークスペースに Send Massage する Action を作成します。
 * ワークスペースには「さわってみようWatson on Bluemix」(IBM) の Natural Language Classifier と Dialog による ダイエットトレーナーの会話の仕組みを Conversation に移植したものを使用します。[^1](#footnote) <a name="link1">
-* Action は APIs (experimental) で外部公開します。
+* Action は APIs で外部公開します。
 * クライアントは Node.js で CLI テストドライバーを作成します。今後 React Native などへの差し換えを検討します。
 
 ### コンポーネント関連図
@@ -84,7 +89,7 @@
     ```
     $ wsk action list
     actions
-    /jiec_gitou_dev/B20-O970605-Conversation/send-message    private nodejs:6
+    /jiec_rd_dev/B20-O970605-Conversation/send-message    private nodejs:6
     ....(省略)....
     ```
 
@@ -113,16 +118,27 @@
     $ wsk action invoke B20-O970605-Conversation/send-message --blocking --result
     ```
 
-1. 外部公開のため API [^2](#footnote) <a name="link2"> を作成します。ここでは次の条件でコマンドを実行します。
-    - API 名: Diet Conversation (-n オプションで指定)
-    - BASE_PATH: /api
-    - API_PATH: /chat
+1. 外部公開のため API を作成します。
+    1. アクションの Web Action 設定を有効にします。 (api-experimental では必要ありませんでした。)
+        ```
+        wsk action update B20-O970605-Conversation/send-message --web true
+        ```
     
-    > 同じ Region、Organization、Space を他の方とシェアしている場合は、BASE_PATH と API_PATH が同じだと上書きされます。適宜変更してください。 (サブスクリプション契約など) 
+    1. ログインします。 (api-experimental では必要ありませんでした。)
+        ```
+        wsk bluemix login --user ippei0605@gmail.com --password ******** --namespace jiec_rd_dev
+        ```
+
+    1. API を作成します。ここでは次の条件でコマンドを実行します。
+        - API 名: Diet Conversation (-n オプションで指定)
+        - BASE_PATH: /api
+        - API_PATH: /chat
+        
+        > 同じ Region、Organization、Space を他の方とシェアしている場合は、BASE_PATH と API_PATH が同じだと上書きされます。適宜変更してください。 (サブスクリプション契約など) 
     
-     ```
-     $ wsk api-experimental create -n "Diet Conversation" /api /chat post B20-O970605-Conversation/send-message
-     ```
+         ```
+         $ wsk api create -n "Diet Conversation" /api /chat post B20-O970605-Conversation/send-message
+         ```
     
 ## ローカル環境
 以下はローカル環境のターミナルソフトでの作業になります。
@@ -164,16 +180,18 @@
 ![実行結果](docs/figure4.png)
 
 ## まとめ
-* 当初は CLI ではなく Web アプリでテストドライバーを作成しようとしましたが、CORS の設定ができず、jquery、fetch ともアクセスエラーとなるため断念しました。experimental がとれるのを待とうと思ってます。
-* Node.js の request からは API アクセスできました。
+* wsk api コマンドで設定した API はデフォルトで CORS が有効になっており、ローカルやクロスサイトの HTML から公開した API にアクセスすることができます。api-experimental 時はアクセスエラーとなりました。この名残でテストドライバーは CLI のままにしています。
 * 今後は React Native でクライアントを作り、Serverless との連携を検証しようと思います。
 * Bluemix OpenWhisk Package Catalog には Watson STT、TTS、Translator などのアクションが整備されていますので、今回作成した Conversation も近い内にリリースされるかもしれません。
 * 処理結果を同期して返す場合は、処理時間が長くなり想定以上にコストがかかるかもしれません。今回は Conversation Send Message の結果を同期して返値しています。(同期しない場合は {} が返ります。) 複数の処理をアクションに記述する場合や、アクションをシーケンスで繋げる場合など、パフォーマンス、エラーハンドリング、コスト最適化などの留意が必要と感じました。
-* 後で気がついたのですが、OpenWhisk Node.js のランタイム環境では watson-developer-cloud モジュールが使用可能でした。詳細は [こちら](https://console.ng.bluemix.net/docs/openwhisk/openwhisk_reference.html#openwhisk_ref_javascript) の JavaScript runtime environments に記載されています。
 
 ## 脚注 <a name="footnote">
 1. [^](#link1) 過去に関連した音声認識付き Chatbot アプリ Watson Diet Trainer を作成しています。リポジトリは [こちら](https://github.com/ippei0605/watson-diet-trainer) です。
-1. [^](#link2) API Experimental は実験的との意味でしょうが、今回の方法なら動作します。現時点ではBluemix コンソール Open Whisk の APIs は参照できますが不安定、wsk api は COMING SOON となっています。
 
 ## 参考資料  
-* [Plan Bのおすすめ: OpenWhiskにAPI管理の機能されたので試す](https://www.niandc.co.jp/sol/tech/date20161216_568.php)
+* Plan Bのおすすめ: OpenWhiskにAPI管理の機能されたので試す
+  - https://www.niandc.co.jp/sol/tech/date20161216_568.php
+* OpenWhisk Node.js のランタイム環境 (JavaScript runtime environments)
+  - https://console.ng.bluemix.net/docs/openwhisk/openwhisk_reference.html#openwhisk_ref_javascript
+* OpenWhisk API Gateway
+  -https://console.ng.bluemix.net/docs/openwhisk/openwhisk_apigateway.html#openwhisk_apigateway
