@@ -180,7 +180,7 @@
 ![実行結果](docs/figure4.png)
 
 ## まとめ
-* wsk api コマンドで設定した API はデフォルトで CORS が有効になっており、ローカルやクロスサイトの HTML から公開した API にアクセスすることができます。api-experimental 時はアクセスエラーとなりました。この名残でテストドライバーは CLI のままにしています。
+* wsk api コマンドで設定した API はデフォルトで CORS が有効になっており、ローカルやクロスサイトの HTML から公開した API にアクセスすることができます。api-experimental 時はアクセスエラーとなりました。この名残でテストドライバーは CLI (Node.js) のままにしています。
 * 今後は React Native でクライアントを作り、Serverless との連携を検証しようと思います。
 * Bluemix OpenWhisk Package Catalog には Watson STT、TTS、Translator などのアクションが整備されていますので、今回作成した Conversation も近い内にリリースされるかもしれません。
 * 処理結果を同期して返す場合は、処理時間が長くなり想定以上にコストがかかるかもしれません。今回は Conversation Send Message の結果を同期して返値しています。(同期しない場合は {} が返ります。) 複数の処理をアクションに記述する場合や、アクションをシーケンスで繋げる場合など、パフォーマンス、エラーハンドリング、コスト最適化などの留意が必要と感じました。
@@ -194,4 +194,4 @@
 * OpenWhisk Node.js のランタイム環境 (JavaScript runtime environments)
   - https://console.ng.bluemix.net/docs/openwhisk/openwhisk_reference.html#openwhisk_ref_javascript
 * OpenWhisk API Gateway
-  -https://console.ng.bluemix.net/docs/openwhisk/openwhisk_apigateway.html#openwhisk_apigateway
+  - https://console.ng.bluemix.net/docs/openwhisk/openwhisk_apigateway.html#openwhisk_apigateway
